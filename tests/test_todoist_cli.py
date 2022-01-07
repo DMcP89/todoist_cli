@@ -2,7 +2,7 @@ from todoist_cli import __version__
 
 
 def test_version():
-    assert __version__ == '0.1.0'
+    assert __version__ == "0.1.0"
 
 
 def test_multiply_two_numbers():
