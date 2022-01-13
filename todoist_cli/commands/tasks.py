@@ -10,8 +10,19 @@ def tasks() -> None:
 
 
 @tasks.command()
-def add() -> None:
-    click.echo("add called")
+def list() -> None:
+    tasks = rest_api.get_tasks()
+    click.echo(tasks)
+
+
+@tasks.command()
+@click.argument("content")
+def add(content: str) -> None:
+    try:
+        task = rest_api.add_task(content=content)
+        print(task)
+    except Exception as error:
+        print(error)
 
 
 @tasks.command()
