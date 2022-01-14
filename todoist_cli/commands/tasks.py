@@ -27,7 +27,7 @@ def add(content: str) -> None:
 
 @tasks.command()
 def delete() -> None:
-    click.echo("delete called")
+    click.echo("test called")
 
 
 @tasks.command()
