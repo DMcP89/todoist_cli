@@ -154,3 +154,4 @@ cython_debug/
 .vscode/
 .idea/
 .python-version
+*.db
