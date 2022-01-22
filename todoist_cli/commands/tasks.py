@@ -1,7 +1,5 @@
 import click
-from todoist_api_python.api import TodoistAPI
-
-rest_api = TodoistAPI("39787f245b4c23fe4dce45d84ad55b6903bedc45")
+from utils import api
 
 
 @click.group()
@@ -11,23 +9,19 @@ def tasks() -> None:
 
 @tasks.command()
 def list() -> None:
-    tasks = rest_api.get_tasks()
-    click.echo(tasks)
+    click.echo("list tasks")
 
 
 @tasks.command()
 @click.argument("content")
 def add(content: str) -> None:
-    try:
-        task = rest_api.add_task(content=content)
-        print(task)
-    except Exception as error:
-        print(error)
+    api.add_task(content, "Personal")
 
 
 @tasks.command()
-def delete() -> None:
-    click.echo("test called")
+@click.argument("task_name")
+def delete(task_name: str) -> None:
+    click.echo("deleteing {}".format(task_name))
 
 
 @tasks.command()
