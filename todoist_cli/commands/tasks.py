@@ -1,4 +1,6 @@
 import click
+from rich.console import Console
+from rich.table import Table
 from utils import api
 
 
@@ -8,8 +10,30 @@ def tasks() -> None:
 
 
 @tasks.command()
-def list() -> None:
-    click.echo("list tasks")
+@click.argument("project", required=False)
+def list(project: str) -> None:
+    """Return all active tasks from a given project, default is inbox"""
+    if not project:
+        project = "inbox"
+    tasks = api.list_tasks(project)
+    table = Table(title="Open tasks for {}".format(project))
+    table.add_column("Due Date", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Task", justify="right", style="magenta")
+    table.add_column("Priority", justify="right", style="red")
+    table.add_column("Project", justify="right", style="cyan")
+    table.add_column("Labels", justify="right", style="green")
+
+    for task in tasks:
+        table.add_row(
+            task["due"],
+            task["content"],
+            str(task["priority"]),
+            task["project"],
+            str(task["labels"]),
+        )
+
+    console = Console()
+    console.print(table)
 
 
 @tasks.command()
