@@ -15,7 +15,7 @@ def list() -> None:
 @tasks.command()
 @click.argument("content")
 def add(content: str) -> None:
-    api.add_task(content, "Personal")
+    api.add_task(content)
 
 
 @tasks.command()
