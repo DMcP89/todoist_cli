@@ -1,4 +1,5 @@
-from typing import Any, Dict
+import traceback
+from typing import Any, Dict, List
 
 from todoist.api import TodoistAPI
 
@@ -6,20 +7,21 @@ sync_api = TodoistAPI("39787f245b4c23fe4dce45d84ad55b6903bedc45")
 sync_api.sync()
 
 
-def list_tasks(project: str) -> list[dict[str, Any]]:
+def list_tasks(project: str) -> List[Dict[str, Any]]:
     try:
         tasks = sync_api.projects.get_data(
             get_id_from_name(project, "projects")
-        )["items"]
-        return sorted(
-            list(map(extract_task_details, tasks)), key=lambda i: i["priority"]
         )
-    except Exception as error:
-        print(error)
+        return sorted(
+            list(map(extract_task_details, tasks["items"])),
+            key=lambda i: i["priority"],
+        )
+    except Exception:
+        print(traceback.format_exc())
     return []
 
 
-def extract_task_details(task: dict[str, str]) -> dict[str, Any]:
+def extract_task_details(task: Dict[str, Any]) -> Dict[str, Any]:
     new_task = {}
     new_task["content"] = task["content"]
     if task["due"]:

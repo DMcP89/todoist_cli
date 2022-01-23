@@ -1,7 +1,8 @@
 import click
 from rich.console import Console
 from rich.table import Table
-from utils import api
+
+from todoist_cli.utils import api
 
 
 @click.group()
@@ -14,7 +15,7 @@ def tasks() -> None:
 def list(project: str) -> None:
     """Return all active tasks from a given project, default is inbox"""
     if not project:
-        project = "inbox"
+        project = "Inbox"
     tasks = api.list_tasks(project)
     table = Table(title="Open tasks for {}".format(project))
     table.add_column("Due Date", justify="right", style="cyan", no_wrap=True)
