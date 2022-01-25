@@ -44,8 +44,17 @@ def get_name_from_id(id: str, type: str) -> str:
 def add_task(content: str) -> None:
     try:
         sync_api.quick.add(content)
-    except Exception as error:
-        print(error)
+    except Exception:
+        print(traceback.format_exc())
+
+
+def delete_task(content: str) -> None:
+    try:
+        task = sync_api.items.get_by_id(get_id_from_name(content, "items"))
+        task.delete()
+        sync_api.commit()
+    except Exception:
+        print(traceback.format_exc())
 
 
 def get_id_from_name(name: str, type: str) -> int:

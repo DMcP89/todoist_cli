@@ -46,7 +46,7 @@ def add(content: str) -> None:
 @tasks.command()
 @click.argument("task_name")
 def delete(task_name: str) -> None:
-    click.echo("deleteing {}".format(task_name))
+    api.delete_task(task_name)
 
 
 @tasks.command()
