@@ -1,9 +1,10 @@
+import os
 import traceback
 from typing import Any, Dict, List
 
 from todoist.api import TodoistAPI
 
-sync_api = TodoistAPI("39787f245b4c23fe4dce45d84ad55b6903bedc45")
+sync_api = TodoistAPI(os.getenv("TODOIST_TOKEN"))
 sync_api.sync()
 
 
