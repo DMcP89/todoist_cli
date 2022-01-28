@@ -44,6 +44,7 @@ def get_name_from_id(id: str, type: str) -> str:
 def add_task(content: str) -> None:
     try:
         sync_api.quick.add(content)
+        sync_api.sync()
     except Exception:
         print(traceback.format_exc())
 
@@ -64,3 +65,10 @@ def get_id_from_name(name: str, type: str) -> int:
         elif "content" in object.data and name == object.data["content"]:
             return object.data["id"]
     return -1
+
+
+def update_task(task_name: str, update_data: Dict[str, Any]) -> None:
+    item = sync_api.items.get_by_id(get_id_from_name(task_name, "items"))
+    item.update(**update_data)
+    sync_api.commit()
+    sync_api.sync()
