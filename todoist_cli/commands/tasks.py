@@ -109,10 +109,20 @@ def update(
 
 
 @tasks.command()
-def close() -> None:
-    click.echo("close called")
+@click.argument("task_name")
+def close(task_name: str) -> None:
+    """Close a task
+    
+    TASK_NAME is the name of the task to be closed
+    """
+    api.close_task(task_name)
 
 
 @tasks.command()
-def reopen() -> None:
-    click.echo("reopen called")
+@click.argument("task_name")
+def reopen(task_name: str) -> None:
+    """Reopen a task
+    
+    TASK_NAME is the name of the task to be reopened
+    """
+    api.reopen_task(task_name)
