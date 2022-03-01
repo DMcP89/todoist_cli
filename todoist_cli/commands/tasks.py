@@ -9,6 +9,9 @@ from todoist_cli.utils import api
 
 @click.group()
 def tasks() -> None:
+    """
+    Manage your todoist tasks [add|close|delete|list|reopen|update]
+    """
     pass
 
 
