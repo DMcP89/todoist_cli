@@ -6,6 +6,8 @@ from rich.table import Table
 
 from todoist_cli.utils import api
 
+console = Console()
+
 
 @click.group()
 def tasks() -> None:
@@ -24,25 +26,28 @@ def list(project: str) -> None:
     """
     if not project:
         project = "Inbox"
-    tasks = api.list_tasks(project)
-    table = Table(title="Open tasks for {}".format(project))
-    table.add_column("Due Date", justify="right", style="cyan", no_wrap=True)
-    table.add_column("Task", justify="right", style="magenta")
-    table.add_column("Priority", justify="right", style="red")
-    table.add_column("Project", justify="right", style="cyan")
-    table.add_column("Labels", justify="right", style="green")
 
-    for task in tasks:
-        table.add_row(
-            task["due"],
-            task["content"],
-            str(task["priority"]),
-            task["project"],
-            str(task["labels"]),
+    try:
+        tasks = api.list_tasks(project)
+        table = Table(title="Open tasks for {}".format(project))
+        table.add_column(
+            "Due Date", justify="right", style="cyan", no_wrap=True
         )
-
-    console = Console()
-    console.print(table)
+        table.add_column("Task", justify="right", style="magenta")
+        table.add_column("Priority", justify="right", style="red")
+        table.add_column("Project", justify="right", style="cyan")
+        table.add_column("Labels", justify="right", style="green")
+        for task in tasks:
+            table.add_row(
+                task["due"],
+                task["content"],
+                str(task["priority"]),
+                task["project"],
+                str(task["labels"]),
+            )
+        console.print(table)
+    except Exception:
+        console.print("Unable to connect to Todoist API")
 
 
 @tasks.command()
@@ -52,7 +57,12 @@ def add(content: str) -> None:
 
     CONTENT is the task to be added, uses Todoist quick add formatting
     """
-    api.add_task(content)
+
+    try:
+        api.add_task(content)
+        console.print("Task added")
+    except Exception:
+        console.print("Unable to connect to Todoist API")
 
 
 @tasks.command()
@@ -62,7 +72,11 @@ def delete(task_name: str) -> None:
 
     TASK_NAME is the name of the task to delete
     """
-    api.delete_task(task_name)
+    try:
+        api.delete_task(task_name)
+        console.print("Task deleted")
+    except Exception:
+        console.print("Unable to connect to Todoist API")
 
 
 @tasks.command()
@@ -108,24 +122,36 @@ def update(
         "priority": priority,
         "labels": labels,
     }
-    api.update_task(task_name, update_data)
+    try:
+        api.update_task(task_name, update_data)
+        console.print("Task updated")
+    except Exception:
+        console.print("Unable to connect to Todoist API")
 
 
 @tasks.command()
 @click.argument("task_name")
 def close(task_name: str) -> None:
     """Close a task
-    
+
     TASK_NAME is the name of the task to be closed
     """
-    api.close_task(task_name)
+    try:
+        api.close_task(task_name)
+        console.print("Task closed")
+    except Exception:
+        console.print("Unable to connect to Todoist API")
 
 
 @tasks.command()
 @click.argument("task_name")
 def reopen(task_name: str) -> None:
     """Reopen a task
-    
+
     TASK_NAME is the name of the task to be reopened
     """
-    api.reopen_task(task_name)
+    try:
+        api.reopen_task(task_name)
+        console.print("Task reopened")
+    except Exception:
+        console.print("Unable to connect to Todoist API")
