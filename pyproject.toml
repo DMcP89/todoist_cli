@@ -1,8 +1,23 @@
 [tool.poetry]
 name = "todoist_cli"
-version = "0.1.0"
-description = ""
+version = "0.0.1"
+description = "Simple commnandl ine utility for managing tasks and projects in Todoist"
 authors = ["Dave McPherson <davemcpherson@wochstudios.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/DMcP89/todoist_cli"
+repository = "https://github.com/DMcP89/todoist_cli"
+keywords = ["todoist", "todo", "cli", "todo list"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Framework :: IPython",
+    "Operating System :: OS Independent",
+     "Programming Language :: Python :: 3.8",
+]
+include = [
+    "LICENSE",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
