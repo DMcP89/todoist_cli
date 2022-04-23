@@ -3,7 +3,7 @@
 Simple commnandl ine utility for managing tasks and projects in Todoist
 
 ## Install
-
+### From Source Code
 Clone this repository
 ```
 git clone https://github.com/DMcP89/todoist_cli.git
@@ -12,6 +12,15 @@ cd todoist_cli
 Install using poetry
 ```
 poetry install
+```
+Set Todoist API token
+```
+export TODOIST_TOKEN=<your_api_key>
+```
+### From Pip
+Install using pip
+```
+pip install todoist-cli
 ```
 Set Todoist API token
 ```

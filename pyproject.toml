@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "todoist_cli"
-version = "0.0.1"
+version = "0.0.2"
 description = "Simple commnandl ine utility for managing tasks and projects in Todoist"
 authors = ["Dave McPherson <davemcpherson@wochstudios.com>"]
 license = "MIT"
