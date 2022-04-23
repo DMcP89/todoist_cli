@@ -13,6 +13,10 @@ Install using poetry
 ```
 poetry install
 ```
+Set Todoist API token
+```
+export TODOIST_TOKEN=<your_api_key>
+```
 
 ## Usage
 Manager command
